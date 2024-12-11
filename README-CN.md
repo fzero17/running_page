@@ -1267,3 +1267,9 @@ curl https://api.github.com/repos/yihong0618/running_page/actions/workflows -H "
   ```bash
   if [ "$VERCEL_GIT_COMMIT_REF" != "gh-pages" ]; then exit 1; else exit 0;
   ```
+
+
+```
+python3 -m venv mvenv
+source mvenv/bin/activate
+```
