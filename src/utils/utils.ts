@@ -248,10 +248,10 @@ const getActivitySport = (act: Activity): string => {
     else if (act.subtype === 'treadmill') return ACTIVITY_TYPES.RUN_TREADMILL_TITLE;
     else return ACTIVITY_TYPES.RUN_GENERIC_TITLE;
   }
-  else if (act.type === 'hiking') {
+  else if (act.type === 'hiking' || act.type === 'Walk') {
     return ACTIVITY_TYPES.HIKING_TITLE;
   }
-  else if (act.type === 'cycling') {
+  else if (act.type === 'cycling' || act.type === "Ride") {
     return ACTIVITY_TYPES.CYCLING_TITLE;
   }
   else if (act.type === 'walking') {
@@ -266,15 +266,17 @@ const getActivitySport = (act: Activity): string => {
 
 const titleForRun = (run: Activity): string => {
   if (RICH_TITLE) {
-    // 1. try to use user defined name
-    if (run.name != '') {
-      return run.name;
-    }
+    
     // 2. try to use location+type if the location is available, eg. 'Shanghai Run'
     const { city, province } = locationForRun(run);
     const activity_sport = getActivitySport(run);
     if (city && city.length > 0 && activity_sport.length > 0) {
       return `${city} ${activity_sport}`;
+    }
+
+    // 1. try to use user defined name
+    if (run.type != '') {
+      return run.type;
     }
   }
   // 3. use time+length if location or type is not available
